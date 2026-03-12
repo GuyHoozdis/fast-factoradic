@@ -28,21 +28,25 @@ size = require_non_negative_int(12)
 
 ## Validation workflow
 
-Run the default automation with:
+Run the default automation locally with:
+
+```bash
+uvx nox
+```
+
+GitHub Actions uses the pinned CI flow instead:
 
 ```bash
 uv sync --group dev --locked
 uv run nox
 ```
 
-The GitHub Actions validation workflow runs this same command so local checks and CI stay aligned.
-
 Run individual sessions when you want faster feedback:
 
 ```bash
-uv run nox -s lint
-uv run nox -s tests
-uv run nox -s build
+uvx nox -s lint
+uvx nox -s tests
+uvx nox -s build
 ```
 
 You can also run pytest directly during focused development:
@@ -56,12 +60,12 @@ uv run pytest
 Build the source distribution and wheel from the repository root:
 
 ```bash
-uv sync --group dev --locked
-uv run nox -s build
+uvx nox -s build
 ```
 
 This session syncs a locked development environment and runs `uv build` for you.
-The GitHub Actions build workflow uses the same locked `uv run nox -s build` command before uploading the generated artifacts.
+The GitHub Actions validation workflow uses `uv sync --group dev --locked` followed by `uv run nox`.
+The GitHub Actions build workflow instead uses `uv sync --group dev --locked` then `uv run nox -s build` before uploading the generated artifacts.
 
 Generated artifacts are written to `dist/`.
 
@@ -69,8 +73,8 @@ Generated artifacts are written to `dist/`.
 
 Before tagging a release, make sure you:
 
-1. Run `uv run nox`.
-2. Run `uv run nox -s build` if you need to re-check build artifacts directly.
+1. Run `uvx nox`.
+2. Run `uvx nox -s build` if you need to re-check build artifacts directly.
 3. Review `CHANGELOG.md`.
 4. Confirm package metadata in `pyproject.toml` still matches the repository state.
 

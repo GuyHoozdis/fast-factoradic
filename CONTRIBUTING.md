@@ -35,20 +35,19 @@ uv sync --group dev --locked
 Run the standard checks from the repository root:
 
 ```bash
-uv sync --group dev --locked
-uv run nox
+uvx nox
 ```
 
 For targeted feedback, use:
 
 ```bash
-uv run nox -s lint
-uv run nox -s tests
-uv run nox -s build
+uvx nox -s lint
+uvx nox -s tests
+uvx nox -s build
 uv run pytest tests/test_project_metadata.py -v
 ```
 
-`uv run nox -s build` is the preferred artifact check and wraps `uv build` inside the nox session.
+`uvx nox -s build` is the preferred artifact check and wraps `uv build` inside the nox session.
 
 ## Pull request checklist
 

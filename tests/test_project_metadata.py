@@ -83,12 +83,17 @@ def test_readme_documents_core_workflows() -> None:
         assert heading in readme
 
     for command in (
+        "uvx nox",
+        "uvx nox -s lint",
+        "uvx nox -s tests",
+        "uvx nox -s build",
         "uv sync --group dev --locked",
-        "uv run nox",
         "uv run pytest",
-        "uv run nox -s build",
     ):
         assert command in readme
+
+    assert "uv sync --group dev --locked` followed by `uv run nox`" in readme
+    assert "uv sync --group dev --locked` then `uv run nox -s build`" in readme
 
 
 def test_readme_uses_absolute_repository_guide_links() -> None:
@@ -113,7 +118,10 @@ def test_contributing_guides_local_worktree_validation_flow() -> None:
     for command in (
         "uv sync --group dev --locked",
         "git worktree add ../fast-factoradic-<topic> -b <topic> origin/main",
-        "uv run nox -s lint",
+        "uvx nox",
+        "uvx nox -s lint",
+        "uvx nox -s tests",
+        "uvx nox -s build",
         "uv run pytest tests/test_project_metadata.py -v",
         "uv build",
     ):
