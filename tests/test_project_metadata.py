@@ -6,6 +6,10 @@ def read_text(path: str) -> str:
     return Path(path).read_text(encoding="utf-8")
 
 
+def workflow_contains(path: str, snippet: str) -> bool:
+    return snippet in read_text(path)
+
+
 def test_pyproject_contains_structured_package_metadata() -> None:
     pyproject = tomllib.loads(read_text("pyproject.toml"))
     project = pyproject["project"]
@@ -41,6 +45,18 @@ def test_pyproject_declares_license_file_for_built_artifacts() -> None:
     pyproject = tomllib.loads(read_text("pyproject.toml"))
 
     assert pyproject["project"]["license-files"] == ["LICENSE"]
+
+
+def test_ci_workflow_validates_declared_python_floor() -> None:
+    pyproject = tomllib.loads(read_text("pyproject.toml"))
+
+    assert pyproject["project"]["requires-python"] == ">=3.11"
+    assert workflow_contains(".github/workflows/ci.yml", 'python-version: ["3.11", "3.12"]')
+    assert workflow_contains(".github/workflows/ci.yml", "python-version: ${{ matrix.python-version }}")
+
+
+def test_build_workflow_uses_supported_python_floor() -> None:
+    assert workflow_contains(".github/workflows/build.yml", 'python-version: "3.11"')
 
 
 def test_readme_documents_core_workflows() -> None:
