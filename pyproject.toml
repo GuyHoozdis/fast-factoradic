@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fast-factoradic"
+version = "0.1.0"
+description = "O(1) calculations of a permutation in nPr-space via factoradics."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "hypothesis>=6.0",
+  "nox>=2024.4.15",
+  "pytest>=8.0",
+  "ruff>=0.11.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -50,7 +50,7 @@ name = "fast-factoradic"
 version = "0.1.0"
 description = "O(1) calculations of a permutation in nPr-space via factoradics."
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 dependencies = []
 
 [dependency-groups]
@@ -128,7 +128,7 @@ Expected: FAIL with an unused import diagnostic.
 Create `ruff.toml`:
 
 ```toml
-target-version = "py312"
+target-version = "py311"
 line-length = 88
 
 [lint]
