@@ -34,6 +34,8 @@ Run the default automation with:
 uvx nox
 ```
 
+The GitHub Actions validation workflow runs this same command so local checks and CI stay aligned.
+
 Run individual sessions when you want faster feedback:
 
 ```bash
@@ -57,6 +59,7 @@ uvx nox -s build
 ```
 
 This session syncs the development environment and runs `uv build` for you.
+The GitHub Actions build workflow uses the same `uv build` command before uploading the generated artifacts.
 
 Generated artifacts are written to `dist/`.
 
