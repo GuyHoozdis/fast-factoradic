@@ -108,6 +108,7 @@ git commit -m "docs: add package metadata and contributor docs"
 - Modify: `src/fast_factoradic/__init__.py`
 - Modify: `src/fast_factoradic/_validation.py`
 - Modify: `tests/test_validation.py`
+- Modify: `tests/test_project_metadata.py` (format-only changes if required by repo-wide Ruff formatting)
 - Create: `tests/__init__.py`
 
 **Step 1: Write the failing test**
