@@ -1,5 +1,5 @@
-from pathlib import Path
 import tomllib
+from pathlib import Path
 
 
 def read_text(path: str) -> str:
@@ -83,8 +83,14 @@ def test_changelog_tracks_unreleased_work_without_a_fictional_release_date() -> 
 
     for entry in (
         "- Package metadata for authors, keywords, classifiers, and project URLs.",
-        "- Contributor and release-readiness documentation for the `uv` and `nox` workflow.",
-        "- Initial project scaffold with `uv_build`, `uvx nox`, `pytest`, `hypothesis`, and `ruff`.",
+        (
+            "- Contributor and release-readiness documentation for the `uv` "
+            "and `nox` workflow."
+        ),
+        (
+            "- Initial project scaffold with `uv_build`, `uvx nox`, "
+            "`pytest`, `hypothesis`, and `ruff`."
+        ),
     ):
         assert entry in changelog
 
