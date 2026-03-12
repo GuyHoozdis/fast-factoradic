@@ -37,6 +37,12 @@ def test_pyproject_contains_structured_package_metadata() -> None:
     }
 
 
+def test_pyproject_declares_license_file_for_built_artifacts() -> None:
+    pyproject = tomllib.loads(read_text("pyproject.toml"))
+
+    assert pyproject["project"]["license-files"] == ["LICENSE"]
+
+
 def test_readme_documents_core_workflows() -> None:
     readme = read_text("README.md")
 
@@ -51,6 +57,19 @@ def test_readme_documents_core_workflows() -> None:
 
     for command in ("uv sync --group dev", "uvx nox", "uv run pytest", "uv build"):
         assert command in readme
+
+
+def test_readme_uses_absolute_repository_guide_links() -> None:
+    readme = read_text("README.md")
+
+    assert (
+        "[`CONTRIBUTING.md`]"
+        "(https://github.com/guyhoozdis/fast-factoradic/blob/main/CONTRIBUTING.md)"
+    ) in readme
+    assert (
+        "[`CHANGELOG.md`]"
+        "(https://github.com/guyhoozdis/fast-factoradic/blob/main/CHANGELOG.md)"
+    ) in readme
 
 
 def test_contributing_guides_local_worktree_validation_flow() -> None:

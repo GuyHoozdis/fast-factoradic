@@ -7,6 +7,7 @@ name = "fast-factoradic"
 version = "0.1.0"
 description = "O(1) calculations of a permutation in nPr-space via factoradics."
 readme = "README.md"
+license-files = ["LICENSE"]
 requires-python = ">=3.11"
 authors = [{ name = "Guy Hoozdis" }]
 keywords = ["factoradic", "permutations", "combinatorics", "ranking", "unranking"]

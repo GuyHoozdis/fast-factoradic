@@ -68,5 +68,5 @@ Before tagging a release, make sure you:
 
 ## Repository guides
 
-- Contributor workflow: [`CONTRIBUTING.md`](CONTRIBUTING.md)
-- Change history: [`CHANGELOG.md`](CHANGELOG.md)
+- Contributor workflow: [`CONTRIBUTING.md`](https://github.com/guyhoozdis/fast-factoradic/blob/main/CONTRIBUTING.md)
+- Change history: [`CHANGELOG.md`](https://github.com/guyhoozdis/fast-factoradic/blob/main/CHANGELOG.md)
