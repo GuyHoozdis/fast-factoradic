@@ -1,0 +1,30 @@
+import nox
+from nox.sessions import Session
+
+nox.options.sessions = ["lint", "tests"]
+nox.options.default_venv_backend = "uv"
+
+
+def sync_dev_dependencies(session: Session) -> None:
+    environment_path = str(session.virtualenv.location)
+    session.run_install(
+        "uv",
+        "sync",
+        "--group",
+        "dev",
+        f"--python={environment_path}",
+        env={"UV_PROJECT_ENVIRONMENT": environment_path},
+    )
+
+
+@nox.session
+def lint(session: Session) -> None:
+    sync_dev_dependencies(session)
+    session.run("ruff", "check", ".")
+    session.run("ruff", "format", "--check", ".")
+
+
+@nox.session
+def tests(session: Session) -> None:
+    sync_dev_dependencies(session)
+    session.run("pytest")
