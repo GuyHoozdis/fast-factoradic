@@ -6,7 +6,7 @@
 
 **Architecture:** Build a small library-first scaffold with explicit config files and one tiny internal validation helper so the test stack exercises real package code from the start. Keep tool execution centered on `uv`, with `nox` providing stable developer commands for linting, formatting, and tests.
 
-**Tech Stack:** Python, uv, nox, Ruff, pytest, Hypothesis, setuptools, src-layout packaging
+**Tech Stack:** Python, uv, uv_build, nox, Ruff, pytest, Hypothesis, src-layout packaging
 
 ---
 
@@ -42,8 +42,8 @@ Create `pyproject.toml` with package metadata and developer dependencies:
 
 ```toml
 [build-system]
-requires = ["setuptools>=69"]
-build-backend = "setuptools.build_meta"
+requires = ["uv_build>=0.10.9,<0.11.0"]
+build-backend = "uv_build"
 
 [project]
 name = "fast-factoradic"
@@ -61,11 +61,6 @@ dev = [
   "ruff>=0.11.0",
 ]
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-
-[tool.setuptools.packages.find]
-where = ["src"]
 ```
 
 Create `src/fast_factoradic/__init__.py`:
