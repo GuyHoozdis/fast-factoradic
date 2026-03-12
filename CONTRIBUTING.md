@@ -9,7 +9,7 @@ Clone the repository and install the development dependencies with `uv`:
 ```bash
 git clone https://github.com/guyhoozdis/fast-factoradic.git
 cd fast-factoradic
-uv sync --group dev
+uv sync --group dev --locked
 ```
 
 ## Create an isolated worktree
@@ -20,7 +20,7 @@ Use a git worktree when you want to keep feature work separate from the main che
 git fetch origin
 git worktree add ../fast-factoradic-<topic> -b <topic> origin/main
 cd ../fast-factoradic-<topic>
-uv sync --group dev
+uv sync --group dev --locked
 ```
 
 ## Development workflow
@@ -35,19 +35,20 @@ uv sync --group dev
 Run the standard checks from the repository root:
 
 ```bash
-uvx nox
+uv sync --group dev --locked
+uv run nox
 ```
 
 For targeted feedback, use:
 
 ```bash
-uvx nox -s lint
-uvx nox -s tests
-uvx nox -s build
+uv run nox -s lint
+uv run nox -s tests
+uv run nox -s build
 uv run pytest tests/test_project_metadata.py -v
 ```
 
-`uvx nox -s build` is the preferred artifact check and wraps `uv build` inside the nox session.
+`uv run nox -s build` is the preferred artifact check and wraps `uv build` inside the nox session.
 
 ## Pull request checklist
 

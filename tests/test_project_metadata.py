@@ -51,12 +51,23 @@ def test_ci_workflow_validates_declared_python_floor() -> None:
     pyproject = tomllib.loads(read_text("pyproject.toml"))
 
     assert pyproject["project"]["requires-python"] == ">=3.11"
+    assert workflow_contains(".github/workflows/ci.yml", 'version: "0.10.6"')
     assert workflow_contains(".github/workflows/ci.yml", 'python-version: ["3.11", "3.12"]')
     assert workflow_contains(".github/workflows/ci.yml", "python-version: ${{ matrix.python-version }}")
+    assert workflow_contains(".github/workflows/ci.yml", "uv sync --group dev --locked")
+    assert workflow_contains(".github/workflows/ci.yml", "uv run nox")
+    assert not workflow_contains(".github/workflows/ci.yml", "uvx nox")
 
 
 def test_build_workflow_uses_supported_python_floor() -> None:
+    assert workflow_contains(".github/workflows/build.yml", 'version: "0.10.6"')
     assert workflow_contains(".github/workflows/build.yml", 'python-version: "3.11"')
+    assert workflow_contains(".github/workflows/build.yml", "uv sync --group dev --locked")
+    assert workflow_contains(".github/workflows/build.yml", "uv run nox -s build")
+
+
+def test_nox_sessions_sync_from_the_locked_dependency_graph() -> None:
+    assert "--locked" in read_text("noxfile.py")
 
 
 def test_readme_documents_core_workflows() -> None:
@@ -71,7 +82,12 @@ def test_readme_documents_core_workflows() -> None:
     ):
         assert heading in readme
 
-    for command in ("uv sync --group dev", "uvx nox", "uv run pytest", "uv build"):
+    for command in (
+        "uv sync --group dev --locked",
+        "uv run nox",
+        "uv run pytest",
+        "uv run nox -s build",
+    ):
         assert command in readme
 
 
@@ -95,9 +111,9 @@ def test_contributing_guides_local_worktree_validation_flow() -> None:
         assert heading in contributing
 
     for command in (
-        "uv sync --group dev",
+        "uv sync --group dev --locked",
         "git worktree add ../fast-factoradic-<topic> -b <topic> origin/main",
-        "uvx nox -s lint",
+        "uv run nox -s lint",
         "uv run pytest tests/test_project_metadata.py -v",
         "uv build",
     ):
@@ -107,13 +123,14 @@ def test_contributing_guides_local_worktree_validation_flow() -> None:
 def test_changelog_tracks_unreleased_work_without_a_fictional_release_date() -> None:
     changelog = read_text("CHANGELOG.md")
 
-    for heading in ("# Changelog", "## [Unreleased]", "### Added"):
+    for heading in ("# Changelog", "## [Unreleased]", "### Added", "### Changed"):
         assert heading in changelog
 
     for entry in (
+        "- Initial project scaffold with `uv_build`, `uvx nox`, `pytest`, `hypothesis`, and `ruff`.",
         "- Package metadata for authors, keywords, classifiers, and project URLs.",
         ("- Contributor and release-readiness documentation for the `uv` and `nox` workflow."),
-        ("- Initial project scaffold with `uv_build`, `uvx nox`, `pytest`, `hypothesis`, and `ruff`."),
+        ("- GitHub Actions now pins `uv` to `0.10.6` and runs CI through the locked project environment."),
     ):
         assert entry in changelog
 

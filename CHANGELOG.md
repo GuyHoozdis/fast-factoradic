@@ -11,3 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Initial project scaffold with `uv_build`, `uvx nox`, `pytest`, `hypothesis`, and `ruff`.
 - Package metadata for authors, keywords, classifiers, and project URLs.
 - Contributor and release-readiness documentation for the `uv` and `nox` workflow.
+
+### Changed
+
+- GitHub Actions now pins `uv` to `0.10.6` and runs CI through the locked project environment.

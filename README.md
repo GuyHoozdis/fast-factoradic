@@ -7,7 +7,7 @@
 Install the project for local development with `uv`:
 
 ```bash
-uv sync --group dev
+uv sync --group dev --locked
 ```
 
 If you only need the package in the current environment, install it from the repository root:
@@ -31,7 +31,8 @@ size = require_non_negative_int(12)
 Run the default automation with:
 
 ```bash
-uvx nox
+uv sync --group dev --locked
+uv run nox
 ```
 
 The GitHub Actions validation workflow runs this same command so local checks and CI stay aligned.
@@ -39,9 +40,9 @@ The GitHub Actions validation workflow runs this same command so local checks an
 Run individual sessions when you want faster feedback:
 
 ```bash
-uvx nox -s lint
-uvx nox -s tests
-uvx nox -s build
+uv run nox -s lint
+uv run nox -s tests
+uv run nox -s build
 ```
 
 You can also run pytest directly during focused development:
@@ -55,11 +56,12 @@ uv run pytest
 Build the source distribution and wheel from the repository root:
 
 ```bash
-uvx nox -s build
+uv sync --group dev --locked
+uv run nox -s build
 ```
 
-This session syncs the development environment and runs `uv build` for you.
-The GitHub Actions build workflow uses the same `uv build` command before uploading the generated artifacts.
+This session syncs a locked development environment and runs `uv build` for you.
+The GitHub Actions build workflow uses the same locked `uv run nox -s build` command before uploading the generated artifacts.
 
 Generated artifacts are written to `dist/`.
 
@@ -67,8 +69,8 @@ Generated artifacts are written to `dist/`.
 
 Before tagging a release, make sure you:
 
-1. Run `uvx nox`.
-2. Run `uvx nox -s build` if you need to re-check build artifacts directly.
+1. Run `uv run nox`.
+2. Run `uv run nox -s build` if you need to re-check build artifacts directly.
 3. Review `CHANGELOG.md`.
 4. Confirm package metadata in `pyproject.toml` still matches the repository state.
 

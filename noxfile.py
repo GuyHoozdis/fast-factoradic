@@ -15,6 +15,7 @@ def sync_dev_dependencies(session: Session) -> None:
         "sync",
         "--group",
         "dev",
+        "--locked",
         f"--python={environment_path}",
         env={"UV_PROJECT_ENVIRONMENT": environment_path},
     )
