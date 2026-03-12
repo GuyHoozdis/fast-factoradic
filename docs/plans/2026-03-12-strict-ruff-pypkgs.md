@@ -199,6 +199,7 @@ git commit -m "chore: add nox build verification"
 - Create: `.github/workflows/ci.yml`
 - Create: `.github/workflows/build.yml`
 - Modify: `README.md`
+- Modify: `tests/test_project_metadata.py` (workflow regression assertions if needed to pin CI/build expectations)
 
 **Step 1: Write the failing test**
 
