@@ -15,7 +15,7 @@ def test_require_non_negative_int_round_trips_non_negative_values(value: int) ->
 
 
 def test_require_non_negative_int_rejects_negative_values() -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="value must be non-negative"):
         require_non_negative_int(-1)
 
 

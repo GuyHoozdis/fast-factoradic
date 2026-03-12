@@ -62,14 +62,8 @@ def test_readme_documents_core_workflows() -> None:
 def test_readme_uses_absolute_repository_guide_links() -> None:
     readme = read_text("README.md")
 
-    assert (
-        "[`CONTRIBUTING.md`]"
-        "(https://github.com/guyhoozdis/fast-factoradic/blob/main/CONTRIBUTING.md)"
-    ) in readme
-    assert (
-        "[`CHANGELOG.md`]"
-        "(https://github.com/guyhoozdis/fast-factoradic/blob/main/CHANGELOG.md)"
-    ) in readme
+    assert ("[`CONTRIBUTING.md`](https://github.com/guyhoozdis/fast-factoradic/blob/main/CONTRIBUTING.md)") in readme
+    assert ("[`CHANGELOG.md`](https://github.com/guyhoozdis/fast-factoradic/blob/main/CHANGELOG.md)") in readme
 
 
 def test_contributing_guides_local_worktree_validation_flow() -> None:
@@ -102,14 +96,8 @@ def test_changelog_tracks_unreleased_work_without_a_fictional_release_date() -> 
 
     for entry in (
         "- Package metadata for authors, keywords, classifiers, and project URLs.",
-        (
-            "- Contributor and release-readiness documentation for the `uv` "
-            "and `nox` workflow."
-        ),
-        (
-            "- Initial project scaffold with `uv_build`, `uvx nox`, "
-            "`pytest`, `hypothesis`, and `ruff`."
-        ),
+        ("- Contributor and release-readiness documentation for the `uv` and `nox` workflow."),
+        ("- Initial project scaffold with `uv_build`, `uvx nox`, `pytest`, `hypothesis`, and `ruff`."),
     ):
         assert entry in changelog
 

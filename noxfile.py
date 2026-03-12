@@ -1,3 +1,5 @@
+"""Nox sessions for linting and tests."""
+
 import nox
 from nox.sessions import Session
 
@@ -6,6 +8,7 @@ nox.options.default_venv_backend = "uv"
 
 
 def sync_dev_dependencies(session: Session) -> None:
+    """Synchronize the session environment with the development dependencies."""
     environment_path = str(session.virtualenv.location)
     session.run_install(
         "uv",
@@ -19,6 +22,7 @@ def sync_dev_dependencies(session: Session) -> None:
 
 @nox.session
 def lint(session: Session) -> None:
+    """Run Ruff checks and formatting validation."""
     sync_dev_dependencies(session)
     session.run("ruff", "check", ".")
     session.run("ruff", "format", "--check", ".")
@@ -26,5 +30,6 @@ def lint(session: Session) -> None:
 
 @nox.session
 def tests(session: Session) -> None:
+    """Run the project's test suite."""
     sync_dev_dependencies(session)
     session.run("pytest")
