@@ -43,9 +43,11 @@ For targeted feedback, use:
 ```bash
 uvx nox -s lint
 uvx nox -s tests
+uvx nox -s build
 uv run pytest tests/test_project_metadata.py -v
-uv build
 ```
+
+`uvx nox -s build` is the preferred artifact check and wraps `uv build` inside the nox session.
 
 ## Pull request checklist
 

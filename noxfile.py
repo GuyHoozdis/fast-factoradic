@@ -1,9 +1,9 @@
-"""Nox sessions for linting and tests."""
+"""Nox sessions for linting, tests, and builds."""
 
 import nox
 from nox.sessions import Session
 
-nox.options.sessions = ["lint", "tests"]
+nox.options.sessions = ["lint", "tests", "build"]
 nox.options.default_venv_backend = "uv"
 
 
@@ -33,3 +33,10 @@ def tests(session: Session) -> None:
     """Run the project's test suite."""
     sync_dev_dependencies(session)
     session.run("pytest")
+
+
+@nox.session
+def build(session: Session) -> None:
+    """Build the project's source and wheel distributions."""
+    sync_dev_dependencies(session)
+    session.run("uv", "build", external=True)
