@@ -63,8 +63,8 @@ Use `nox` as the human-friendly automation layer. Each session should call `uv r
 The expected developer flow should be:
 
 1. Run `uv sync --group dev`.
-2. Run `uv run nox -s lint`.
-3. Run `uv run nox -s tests`.
+2. Run `uvx nox`.
+3. Run `uvx nox -s tests` when you want a single session directly.
 
 This keeps local usage simple and avoids teaching multiple competing workflows.
 

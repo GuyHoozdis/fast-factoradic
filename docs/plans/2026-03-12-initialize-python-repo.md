@@ -159,17 +159,17 @@ git commit -m "chore: add strict ruff configuration"
 
 **Step 1: Write the failing test**
 
-Try to run a `nox` session before the file exists.
+Try to run the default `nox` automation before the file exists.
 
 ```bash
-uv run nox -s lint
+uvx nox
 ```
 
 **Step 2: Run test to verify it fails**
 
-Run: `uv run nox -s lint`
+Run: `uvx nox`
 
-Expected: FAIL with a message that `noxfile.py` or the requested session is missing.
+Expected: FAIL with a message that `noxfile.py` is missing.
 
 **Step 3: Write minimal implementation**
 
@@ -177,26 +177,42 @@ Create `noxfile.py`:
 
 ```python
 import nox
+from nox.sessions import Session
 
 nox.options.sessions = ["lint", "tests"]
+nox.options.default_venv_backend = "uv"
+
+
+def sync_dev_dependencies(session: Session) -> None:
+    environment_path = str(session.virtualenv.location)
+    session.run_install(
+        "uv",
+        "sync",
+        "--group",
+        "dev",
+        f"--python={environment_path}",
+        env={"UV_PROJECT_ENVIRONMENT": environment_path},
+    )
 
 
 @nox.session
-def lint(session: nox.Session) -> None:
-    session.run("uv", "run", "ruff", "check", ".")
-    session.run("uv", "run", "ruff", "format", "--check", ".")
+def lint(session: Session) -> None:
+    sync_dev_dependencies(session)
+    session.run("ruff", "check", ".")
+    session.run("ruff", "format", "--check", ".")
 
 
 @nox.session
-def tests(session: nox.Session) -> None:
-    session.run("uv", "run", "pytest")
+def tests(session: Session) -> None:
+    sync_dev_dependencies(session)
+    session.run("pytest")
 ```
 
-Update `README.md` so the recommended commands are `uv sync --group dev`, `uv run nox -s lint`, and `uv run nox -s tests`.
+Update `README.md` so the recommended commands are `uv sync --group dev`, `uvx nox`, `uvx nox -s lint`, and `uvx nox -s tests`.
 
 **Step 4: Run test to verify it passes**
 
-Run: `uv run nox -s lint && uv run nox -s tests`
+Run: `uvx nox`
 
 Expected: PASS
 
@@ -286,7 +302,7 @@ No new test code is needed. This task verifies the whole scaffold together.
 
 **Step 2: Run test to verify the current state**
 
-Run: `uv run ruff check . && uv run ruff format --check . && uv run pytest -v && uv run nox -s lint && uv run nox -s tests`
+Run: `uv run ruff check . && uv run ruff format --check . && uv run pytest -v && uvx nox`
 
 Expected: PASS across all commands.
 
@@ -296,7 +312,7 @@ Fix any final packaging, import, or configuration issues surfaced by the full ru
 
 **Step 4: Run test to verify it passes**
 
-Run: `uv run ruff check . && uv run ruff format --check . && uv run pytest -v && uv run nox -s lint && uv run nox -s tests`
+Run: `uv run ruff check . && uv run ruff format --check . && uv run pytest -v && uvx nox`
 
 Expected: PASS
 

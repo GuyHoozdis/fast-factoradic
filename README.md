@@ -9,9 +9,15 @@ Install the development dependencies with:
 uv sync --group dev
 ```
 
-Run the lint and test automation with:
+Run the default automation with:
 
 ```bash
-uv run nox -s lint
-uv run nox -s tests
+uvx nox
+```
+
+Run individual sessions with:
+
+```bash
+uvx nox -s lint
+uvx nox -s tests
 ```
