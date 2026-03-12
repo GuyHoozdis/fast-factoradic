@@ -8,11 +8,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- Initial project scaffold with `uv_build`, `uvx nox`, `pytest`, `hypothesis`, and `ruff`.
 - Package metadata for authors, keywords, classifiers, and project URLs.
 - Contributor and release-readiness documentation for the `uv` and `nox` workflow.
-
-## [0.1.0] - 2025-03-12
-
-### Added
-
-- Initial project scaffold with `uv_build`, `uvx nox`, `pytest`, `hypothesis`, and `ruff`.
