@@ -7,8 +7,28 @@ name = "fast-factoradic"
 version = "0.1.0"
 description = "O(1) calculations of a permutation in nPr-space via factoradics."
 readme = "README.md"
+license-files = ["LICENSE"]
 requires-python = ">=3.11"
+authors = [{ name = "Guy Hoozdis" }]
+keywords = ["factoradic", "permutations", "combinatorics", "ranking", "unranking"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/guyhoozdis/fast-factoradic"
+Repository = "https://github.com/guyhoozdis/fast-factoradic"
+Documentation = "https://github.com/guyhoozdis/fast-factoradic#readme"
+Changelog = "https://github.com/guyhoozdis/fast-factoradic/blob/main/CHANGELOG.md"
+Issues = "https://github.com/guyhoozdis/fast-factoradic/issues"
 
 [dependency-groups]
 dev = [

@@ -1,9 +1,15 @@
 target-version = "py311"
-line-length = 88
+line-length = 120
 
 [lint]
-select = ["E", "F", "I", "B", "UP", "SIM"]
+select = ["E", "F", "W", "I", "N", "UP", "YTT", "B", "A", "C4", "RET", "SIM", "ARG", "PT", "RUF", "ANN", "D", "S", "INP", "TID"]
 ignore = []
+
+[lint.pydocstyle]
+convention = "google"
+
+[lint.per-file-ignores]
+"tests/**/*.py" = ["D", "S101"]
 
 [format]
 quote-style = "double"

@@ -108,6 +108,7 @@ git commit -m "docs: add package metadata and contributor docs"
 - Modify: `src/fast_factoradic/__init__.py`
 - Modify: `src/fast_factoradic/_validation.py`
 - Modify: `tests/test_validation.py`
+- Modify: `tests/test_project_metadata.py` (format-only changes if required by repo-wide Ruff formatting)
 - Create: `tests/__init__.py`
 
 **Step 1: Write the failing test**
@@ -198,6 +199,7 @@ git commit -m "chore: add nox build verification"
 - Create: `.github/workflows/ci.yml`
 - Create: `.github/workflows/build.yml`
 - Modify: `README.md`
+- Modify: `tests/test_project_metadata.py` (workflow regression assertions if needed to pin CI/build expectations)
 
 **Step 1: Write the failing test**
 
