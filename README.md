@@ -1,13 +1,16 @@
 # fast-factoradic
 
-`fast-factoradic` is a small Python package for factoradic-oriented permutation work. The project is still early, but the repository already ships a strict validation helper and a `uv`-based workflow for building, linting, and testing future combinatorics features.
+O(1) caclulations of a permutation in nPr-space via factoradics - indexes in base factorial.
+
+In the same way that you can have a number system in base 10 (decimal), or 2 (binary), or 16 (hexadecimal), you can have a number system in base factorial, where the place values are 1!, 2!, 3!, and so on. 
+
 
 ## Install
 
 Install the project for local development with `uv`:
 
 ```bash
-uv sync --group dev --locked
+uv sync --locked
 ```
 
 If you only need the package in the current environment, install it from the repository root:
@@ -34,25 +37,17 @@ Run the default automation locally with:
 uvx nox
 ```
 
-GitHub Actions uses the pinned CI flow instead:
-
-```bash
-uv sync --group dev --locked
-uv run nox
-```
-
 Run individual sessions when you want faster feedback:
 
 ```bash
 uvx nox -s lint
 uvx nox -s tests
-uvx nox -s build
 ```
 
 You can also run pytest directly during focused development:
 
 ```bash
-uv run pytest
+uv run pytest path/to/test_file.py
 ```
 
 ## Build artifacts
@@ -60,12 +55,8 @@ uv run pytest
 Build the source distribution and wheel from the repository root:
 
 ```bash
-uvx nox -s build
+uv build
 ```
-
-This session syncs a locked development environment and runs `uv build` for you.
-The GitHub Actions validation workflow uses `uv sync --group dev --locked` followed by `uv run nox`.
-The GitHub Actions build workflow instead uses `uv sync --group dev --locked` then `uv run nox -s build` before uploading the generated artifacts.
 
 Generated artifacts are written to `dist/`.
 
@@ -74,7 +65,7 @@ Generated artifacts are written to `dist/`.
 Before tagging a release, make sure you:
 
 1. Run `uvx nox`.
-2. Run `uvx nox -s build` if you need to re-check build artifacts directly.
+2. Run `uv build` if you need to re-check build artifacts directly.
 3. Review `CHANGELOG.md`.
 4. Confirm package metadata in `pyproject.toml` still matches the repository state.
 
