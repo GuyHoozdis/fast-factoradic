@@ -32,3 +32,10 @@ def tests(session: Session) -> None:
     """Run the project's test suite."""
     install_dependencies(session)
     session.run("pytest")
+
+
+@nox.session
+def build(session: Session) -> None:
+    """Build the project's source and wheel distributions."""
+    install_dependencies(session)
+    session.run("uv", "build", external=True)
